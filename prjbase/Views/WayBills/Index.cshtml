@@ -1,0 +1,149 @@
+﻿@model IEnumerable<prjbase.Models.WayBill>
+
+@{
+    ViewData["Title"] = "Mantenimiento de WayBill";
+    ViewData["controller"] = "WayBills";
+    ViewData["category"] = "WayBill";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Codigo)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaDespacho)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Year)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaLlegada)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IT)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nivel)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FechaCreacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdBodegaNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdRemesaNavigation)
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                                    <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Edit">
+                                        <i class="fa fa-edit"></i> Editar
+                                    </a>
+                                    @*<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |*@
+                                </secure-content>
+                                @if (item.WayBillDetalle.Count > 0)
+                                {
+                                    <a class="dropdown-item" asp-controller="WayBillDetalles" asp-action="Index" asp-route-id="@item.Id">
+                                        <i class="fa fa-shopping-basket"></i> Productos
+                                    </a>
+                                    <a class="dropdown-item" asp-controller="ConciliacionWBs" asp-action="Index" asp-route-Id="@item.Id">
+                                        <i class="fa fa-check-double"></i> Conciliacion
+                                    </a>
+                                }
+                                <span title="@(item.WayBillDetalle.Count>0?"No se puede eliminar el waybill, ya se han agregado productos.": "")">
+                                    <a asp-action="@(item.WayBillDetalle.Count>0? "#": "Delete")" class="dropdown-item @(item.WayBillDetalle.Count>0?"disabled": "")" asp-route-id="@item.Id">
+                                        <i class="fa fa-minus-circle"></i>  Eliminar
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                                    @*<div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Acciones
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-toggle="dropdown" data-boundary="window">
+                            <a class="dropdown-item" asp-controller="WayBills" asp-action="Edit" asp-route-id="@item.Id">
+                                <i class="fa fa-edit"></i> Editar
+                            </a>
+                            @if (item.WayBillDetalle.Count > 0)
+                            {
+                                <a class="dropdown-item" asp-controller="WayBillDetalles" asp-action="Index" asp-route-id="@item.Id">
+                                    <i class="fa fa-shopping-basket"></i> Productos
+                                </a>
+                                <a class="dropdown-item" asp-controller="ConciliacionWBs" asp-action="Index" asp-route-Id="@item.Id">
+                                    <i class="fa fa-check-double"></i> Conciliacion
+                                </a>
+                            }
+                            <span title="@(item.WayBillDetalle.Count>0?"No se puede eliminar el waybill, ya se han agregado productos.": "")">
+                                <a asp-action="@(item.WayBillDetalle.Count>0? "#": "Delete")" class="dropdown-item @(item.WayBillDetalle.Count>0?"disabled": "")" asp-route-id="@item.Id">
+                                    <i class="fa fa-minus-circle"></i>  Eliminar
+                                </a>
+                            </span>
+                        </div>
+                    </div>*@
+
+
+
+
+                        </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaDespacho)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Year)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaLlegada)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nivel)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaCreacion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdBodegaNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdRemesaNavigation.Nombre)
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>

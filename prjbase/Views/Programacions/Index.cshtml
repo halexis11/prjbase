@@ -1,0 +1,168 @@
+﻿@model IEnumerable<prjbase.Models.Programacion>
+
+@{
+    ViewData["Title"] = "Mantenimiento de programación";
+    ViewData["controller"] = "Programacions";
+    ViewData["category"] = "Programación";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table table-bordered table-striped" id="datatable2" style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Departamento
+                    </th>
+                    <th>
+                        Municipio
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdBodegaNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdFocalizacionNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdRemesaNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha)
+                    </th>
+                    <th>
+                        Total Escuelas
+                    </th>
+                    <th>
+                        Poblaci&oacute;n
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Acciones
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                @if (item.Estado != "3")
+                                {
+                                    <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                                        <a class="dropdown-item" asp-route-id="@item.Id" asp-action="Edit">
+                                            <i class="fa fa-edit"></i> Editar
+                                        </a>
+                                        @*<a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |*@
+                                    </secure-content>
+                                    if (item.ProgramacionCentroEducativo.Count == 0)
+                                    {
+
+                                    }
+                                    <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                                        <span title="@(item.ProgramacionCentroEducativo.Count>0?"No se puede eliminar la programación, ya se han asignado Escuelas.": "")">
+                                            <a class="dropdown-item @(item.ProgramacionCentroEducativo.Count>0?"disabled": "")" asp-route-id="@item.Id" asp-action="@(item.ProgramacionCentroEducativo.Count>0? "#": "Delete")">
+                                                <i class="fa fa-minus-circle"></i> Eliminar
+                                            </a>
+                                        </span>
+
+                                    </secure-content>
+                                }
+                                <secure-content asp-area="" asp-controller="ProgramacionCentroEducativoes" asp-action="Index">
+                                    <a class="dropdown-item" asp-controller="ProgramacionCentroEducativoes" asp-action="Index" asp-route-id="@item.Id">
+                                        <i class="fa fa-building"></i> Escuelas
+                                    </a>
+                                </secure-content>
+
+                                <a class="dropdown-item" asp-action="Index" asp-controller="ProgramacionProductoDetalles" asp-route-IdProgramacion="@item.Id">
+                                    <i class="fa fa-shopping-basket"></i> Productos
+                                </a>
+
+                                <a class="dropdown-item" asp-action="Index" asp-controller="NotaRemisions" asp-route-IdProgramacion="@item.Id">
+                                    <i class="fa fa-check"></i> Notas Remisi&oacute;n
+                                </a>
+                                @if (item.Estado == "1")
+                                {
+                                    <secure-content asp-area="" asp-controller="Programacions" asp-action="Aprobar">
+                                        <a class="dropdown-item" asp-controller="Programacions" asp-action="Aprobar" asp-route-id="@item.Id">
+                                            <i class="fa fa-check-circle"></i> Aprobar
+                                        </a>
+                                    </secure-content>
+                                }
+
+                                @if (item.Estado == "2")
+                                {
+                                    <secure-content asp-area="" asp-controller="Programacions" asp-action="Inicio">
+                                        <a class="dropdown-item" asp-action="Inicio" asp-route-id="@item.Id">
+                                            <i class="fa fa-undo"></i> Inicio
+                                        </a>
+                                    </secure-content>
+                                }
+
+                                @if (item.Estado == "3")
+                                {
+                                    <secure-content asp-area="" asp-controller="Programacions" asp-action="VolverPaso2">
+                                        <a class="dropdown-item" asp-controller="Programacions" asp-action="VolverPaso2" asp-route-id="@item.Id">
+                                            <i class="fa fa-undo"></i> Regresar
+                                        </a>
+                                    </secure-content>
+                                }
+
+                                @if (item.Estado == "2")
+                                {
+                                    <secure-content asp-area="" asp-controller="Programacions" asp-action="Paso2">
+                                        <a class="dropdown-item" asp-controller="Programacions" asp-action="Paso2" asp-route-id="@item.Id">
+                                            <i class="fa fa-check-double"></i> Cerrar
+                                        </a>
+                                    </secure-content>
+                                }
+                            </div>
+                        </div>
+
+
+
+                        @*posibilidad de cambiar a estado 2 y volver a estado 1*@
+                        @*el de la bodega puede pasar de estado 1 a 2 y de estado 2 a 1, mientras el de la sub oficina de 2 a 3 y de 3 a 2*@
+
+                        @*|
+            <a asp-action="NotaRemision" asp-controller="NotaRemisions" asp-route-IdProgramacion="@item.Id">Imprimir</a>*@
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdBodegaNavigation.IdDepartamentoNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdBodegaNavigation.IdMunicipioNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdBodegaNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdFocalizacionNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdRemesaNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+                    <td>
+                        @item.ProgramacionCentroEducativo.Count
+                    </td>
+                    <td>
+                        @item.ProgramacionCentroEducativo.Sum(x => x.Total)
+
+                    </td>
+
+
+                </tr>
+                }
+            </tbody>
+        </table>
+        </div>
+    </body>

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<prjbase.Models.Racion>
+
+@{
+    ViewData["Title"] = "Mantenimiento de raciones";
+    ViewData["controller"] = "Racions";
+    ViewData["category"] = "Racion";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+    <body>
+
+        
+        <partial name="_EncabezadoConsulta" />
+        <div class="px-4">
+            <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nivel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdZonaNavigation)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                                </secure-content>
+                                <secure-content asp-area="" asp-controller="RacionDetalles" asp-action="Index">
+                                    <a asp-action="Index" asp-controller="RacionDetalles" asp-route-id="@item.Id">Detalle</a> |
+                                </secure-content>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                                </secure-content>
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nivel)
+                            </td>
+                            <td>
+                                @(item.Estado==true?"Activo": "Inactivo")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdZonaNavigation.Nombre)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </body>

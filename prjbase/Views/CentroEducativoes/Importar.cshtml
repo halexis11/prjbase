@@ -1,0 +1,116 @@
+﻿@model IEnumerable<prjbase.Models.ImportarCE>
+
+@{
+    ViewData["Title"] = "Importar Centros Educativos";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+    ViewData["controller"] = "CentroEducativoes";
+
+}
+
+<h1>Importar Centros Educativos</h1>
+<body>
+    <form id="form" asp-action="Import" asp-controller="CentroEducativoes" enctype="multipart/form-data" method="post">
+
+        <div class="row">
+            <div class="col-md-4">
+                <input type="file" id="formFile" name="formFile" class="form-control" />
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-8" style="padding-top:10px;">
+                <button id="importar" class="btn btn-primary">Importar</button>
+            </div>
+        </div>
+        <br />
+        <div id="dvData" class="px-4">
+            <table class="table display table-bordered table-striped dt-responsive nowrap" id="datatable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Departamento</th>
+                        <th>Municipio</th>
+                        <th>Distrito</th>
+                        <th>Zona</th>
+                        <th>Nivel</th>
+                        <th>Nombre</th>
+                        <th>Direcci&oacute;n</th>
+                        <th>Tel&eacute;fono</th>
+                        <th>Nombre Contacto</th>
+                        <th>Correo</th>
+                        <th>Tel&eacute;fono Contacto</th>
+                        <th>Ni&ntilde;os</th>
+                        <th>Ni&ntilde;as</th>
+                        <th>Total</th>
+                        <th>Evaluación</th>
+                    </tr>
+                </thead>
+
+            </table>
+
+        </div>
+    </form>
+</body>
+@section Scripts2 {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $("#importar").click(function (e) {
+
+        var formdata = new FormData($('#form').get(0));
+        this.disabled = true;
+        this.innerHTML = '<i class="fa fa-spinner fa-spin"></i> Procesando...';
+        $.ajax({
+            url: '@Url.Action("Import", "CentroEducativoes")',
+            type: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data);
+                switch (data.code)
+                {
+                    case 0:
+                        $("#importar").removeAttr("disabled");
+                        $("#importar").innerHTML = '<i class="fa fa-spinner fa-spin"></i> Procesado...';
+                        appendData("datatable", data.data);
+                        $("#datatable").dataTable().fnDestroy();
+                        updateDataTable();
+                        
+                        
+                        break;                    
+                    default:
+                        $("#importar").innerHTML = data.msg;
+                        break;
+                }
+               // if (data.code == "0") {
+                    
+               // }
+                //else {
+//                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //rendering errors
+            }
+        });
+            e.preventDefault();
+            e.stopPropagation();
+        })
+
+        function appendData(tableId, jsonData){
+
+            var tableHTML="";// = "<thead><tr><th>Id</th><th>Departamento</th><th>Municipio</th><th>Distrito</th><th>Zona</th><th>Nivel</th><th>Nombre</th><th>Direcci&oacute;n</th><th>Tel&eacute;fono</th><th>Nombre Contacto</th><th>Correo</th><th>Tel&eacute;fono Contacto</th><th>Ni&ntilde;os</th><th>Ni&ntilde;as</th><th>Total</th><th>Evaluación</th></tr></thead>"
+          for (var eachItem in jsonData) {
+            tableHTML += "<tr>";
+            var dataObj = jsonData[eachItem];
+            for (var eachValue in dataObj){
+              tableHTML += "<td>" + dataObj[eachValue] + "</td>";
+            }
+            tableHTML += "</tr>";
+            }
+            //tableHTML += "</tbody>"
+            document.getElementById(tableId).innerHTML = tableHTML;
+           
+        }
+    </script>
+}

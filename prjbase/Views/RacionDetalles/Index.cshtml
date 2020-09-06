@@ -1,0 +1,69 @@
+﻿@model IEnumerable<prjbase.Models.RacionDetalle>
+
+@{
+    ViewData["Category"] = "Racion";
+    ViewData["controller"] = "RacionDetalles";
+    ViewData["Title"] = "Editar detalle de ración";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+
+    <body>
+        <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+
+            <div>
+            </div>
+
+            <a href="" class="white-text mx-3">@ViewData["Title"]</a>
+
+            <div>
+                <a class="btn btn-outline-white btn-rounded btn-sm px-2" asp-route-idRacion=@ViewBag.idracion asp-action="Create">
+                    <i class="fas fa-plus mt-0"></i>
+                </a>
+
+            </div>
+
+        </div>
+        <div class="px-4">
+            <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CantidadGramos)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdProductoNavigation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdRacionNavigation)
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CantidadGramos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdProductoNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdRacionNavigation.Nivel)
+                            </td>
+                            <td>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                                </secure-content>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                                </secure-content>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+</body>

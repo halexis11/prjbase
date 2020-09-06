@@ -1,0 +1,146 @@
+﻿@model IEnumerable<prjbase.Models.CentroEducativo>
+
+@{
+    ViewData["Title"] = "Mantenimiento de Centros Educativos";
+    ViewData["controller"] = "CentroEducativoes";
+    ViewData["category"] = "CentroEducativo";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+    <body>
+
+        <partial name="_EncabezadoConsulta" />
+        <div class="px-4">
+            <table class="table table-bordered table-striped" id="datatable2" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            C&oacute;digo
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdDepartamentoNavigation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdMunicipioNavigation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nombre)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Direccion)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Telefono)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Nivel)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.NombreContacto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.CorreoContacto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TelefonoContacto)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ninos)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Ninas)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Total)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdBodegaNavigation)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdDistritoNavigation)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.IdZonaNavigation)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Estado)
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                                </secure-content>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                                </secure-content>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdDepartamentoNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdMunicipioNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Direccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Telefono)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nivel)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NombreContacto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CorreoContacto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefonoContacto)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ninos)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Ninas)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Total)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdBodegaNavigation.Nombre)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdDistritoNavigation.Nombre)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdZonaNavigation.Nombre)
+                            </td>
+                            <td>
+                                @(item.Estado == true ? "Activo" : "Inactivo")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+</body>

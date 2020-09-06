@@ -1,0 +1,191 @@
+﻿@model IEnumerable<prjbase.Models.NotaRemision>
+
+@{
+    ViewData["Category"] = "Programación";
+    ViewData["controller"] = "NotaRemisions";
+    ViewData["Title"] = "Lista de Notas de remisión";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+    ViewBag.ID = "0";
+    var programacion = Model.Select(x => x.IdProgramacionNavigation).Distinct().FirstOrDefault();
+}
+
+
+    <body>
+        <div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+
+            <div>
+            </div>
+            <a href="" class="white-text mx-3">@ViewData["Title"]</a>
+            <div>
+            </div>
+
+        </div>
+
+        <div class="card-body d-sm-flex justify-content-between">
+            <h4 class="mb-2 mb-sm-0 pt-1">
+                <a asp-action="Index" asp-route-id="@ViewBag.idprogramacion" asp-controller="Programacions">@ViewData["Category"]</a>
+            </h4>
+
+        </div>
+        @if (Model.Count()==0 || Model.Select(x => x.IdProgramacionNavigation).FirstOrDefault().Estado.FirstOrDefault().ToString() != "3")
+        { 
+        @*@if (Model.Select(x => x.IdProgramacionNavigation).FirstOrDefault().Estado.FirstOrDefault().ToString() != "3")
+        {*@
+            <input type="submit" id="actualizar" value="Generar Notas de Remisión" class="btn btn-primary" />
+
+        }
+       @if (Model.Count()>0 && Model.Select(x => x.IdProgramacionNavigation).FirstOrDefault().Estado.FirstOrDefault().ToString() != "3")
+       {
+            <div class="float-right">
+                <a class="btn btn-green" asp-route-IdProgramacion="@programacion.Id" target="_blank" asp-action="NotaRemisionReporte">
+                    <i class="fa fa-print"></i> Imprimir
+                </a>
+            </div>
+            <br />
+            <br />
+        }
+        
+        @{ if (Model.Count() > 0)
+            {
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Sub Oficina: </label><b> @programacion.IdBodegaNavigation.IdSubOficinaNavigation.Nombre</b>
+                                <br />
+                                <label>Remesa: </label><b> @programacion.IdRemesaNavigation.Nombre</b>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Bodega: </label><b> @programacion.IdBodegaNavigation.Nombre</b>
+                                <br />
+                                <label>Fecha: </label><b> @programacion.Fecha.ToShortDateString()</b>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Focalizaci&oacute;n: </label><b> @programacion.IdFocalizacionNavigation.Nombre</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        }
+        <br />
+        <table class="display table-bordered table-striped" id="detalle" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdCentroEducativoNavigation)
+                    </th>
+                    <th>
+                        Embalaje
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdProductoNavigation)
+                    </th>
+                    <th>
+                        Libras
+                    </th>
+
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdCentroEducativoNavigation.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdProductoNavigation.Embalaje.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdProductoNavigation.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Cantidad)
+                        </td>
+
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </body>
+
+@section scripts2{
+    <script>
+
+        $(document).ready(function() {
+    var groupColumn = 0;
+    var table = $('#detalle').DataTable({
+        "columnDefs": [
+            { "visible": false, "targets": groupColumn }
+        ],
+        "order": [[ groupColumn, 'asc' ]],
+        "displayLength": 25,
+        "drawCallback": function ( settings ) {
+            var api = this.api();
+            var rows = api.rows( {page:'current'} ).nodes();
+            var last=null;
+ 
+            api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+                if ( last !== group ) {
+                    $(rows).eq( i ).before(
+                        '<tr class="group"><td colspan="5">'+group+'</td></tr>'
+                    );
+ 
+                    last = group;
+                }
+            } );
+        }
+    } );
+ 
+    // Order by the grouping
+    $('#detalle tbody').on( 'click', 'tr.group', function () {
+        var currentOrder = table.order()[0];
+        if ( currentOrder[0] === groupColumn && currentOrder[1] === 'asc' ) {
+            table.order( [ groupColumn, 'desc' ] ).draw();
+        }
+        else {
+            table.order( [ groupColumn, 'asc' ] ).draw();
+        }
+    } );
+} );
+
+        function sendAjax(url, parametros, sucesso) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: parametros,
+                success: sucesso,
+                dataType: "json",
+                error: function (err) { alert(err.responseText); }
+            });
+        }
+
+        $("#actualizar").click(function () {
+            var opcion = confirm("Este proceso generará nuevamente las notas de remisión, confirme que desea continuar?");
+            if (opcion == true) {
+                var url = '@Url.Content("~")' + "/NotaRemisions/Generar";
+                    sendAjax(url, { IdProgramacion: @ViewBag.idprogramacion}, function (result) {
+                            console.log(result);
+                            if (result.data == true) {
+                                alert("El proceso finalizó satistactoriamente.");
+                            }
+                        });
+	        } else {
+	            mensaje = "Has clickado Cancelar";
+	        }
+            
+        })
+
+    </script>
+}

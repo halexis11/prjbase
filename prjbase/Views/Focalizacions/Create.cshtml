@@ -1,0 +1,27 @@
+﻿@model prjbase.Models.Focalizacion
+
+@{
+    ViewData["Category"] = "Focalización";
+    ViewData["controller"] = "Focalizacions";
+    ViewData["Title"] = "Crear focalización";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_EncabezadoProp" />
+<body>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Nombre" class="control-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <input asp-for="Estado" hidden value="1" class="form-control" />
+        <div class="form-group">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </form>
+</body>
+@*@section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@

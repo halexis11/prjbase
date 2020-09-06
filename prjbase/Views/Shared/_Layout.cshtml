@@ -1,0 +1,187 @@
+﻿@*<partial name="_Menu" />*@
+@{
+    //if (ViewContext.RouteData.Values.Contains("Controller"))
+    //{
+    ViewData["Controller"] = ViewContext.RouteData.Values["Controller"];//.ToString().ToLower();
+    ViewData["Action"] = ViewContext.RouteData.Values["Action"];//.ToString().ToLower();
+                                                                // }
+
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - PNAE-RS</title>
+
+
+    <link href="~/lib/materialdesign/css/bootstrap.css" rel="stylesheet" />
+
+    <link href="~/lib/materialdesign/css/style.css" rel="stylesheet" />
+    <link href="~/lib/materialdesign/css/mdb.min.css" rel="stylesheet" />
+
+    <link href="~/css/select2.min.css" rel="stylesheet" />
+    @RenderSection("css", required: false)
+
+    <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("Header", required: false)
+</head>
+
+<body>
+    <header>
+        <!--Navbar -->
+        <nav class="navbar fixed-top navbar-expand-lg  navbar-dark info-color">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">PNAE-RS</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                    <ul class="navbar-nav ml-auto">
+                        <secure-content asp-area="" asp-controller="Access" asp-action="Index">
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Access" asp-action="Index" class="nav-link">Accesos por Usuario </a>
+                            </li>
+                        </secure-content>
+                        <secure-content asp-area="" asp-controller="Role" asp-action="Index">
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Role" asp-action="Index" class="nav-link">Roles </a>
+                            </li>
+                        </secure-content>
+
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-fixed position-fixed">
+            <br />
+            <center>
+                <a asp-controller="Home" asp-action="Index" class="waves-effect">
+                    <img src="~/Img/logo.png" class="img-fluid" height="100" width="100" />
+                </a>
+            </center>
+            <br />
+
+            <div class="list-group list-group-flush">
+                <secure-content asp-area="" asp-controller="CentroEducativoes" asp-action="Index">
+                    <a asp-action="Index" asp-controller="CentroEducativoes" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "centroeducativoes" && ViewData["action"].ToString().ToLower()=="index"? "active": "")">
+                        <i class="fas fa-building mr-3"></i>Centros Educativos
+                    </a>
+                </secure-content>
+
+                <secure-content asp-area="" asp-controller="Distritoes" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Distritoes" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "distritoes"? "active": "")">
+                        <i class="fas fa-table mr-3"></i>Distritos
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="Programacions" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Programacions" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "programacions"? "active": "")">
+                        <i class="fas fa-calendar mr-3"></i>Programaci&oacute;n
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="WayBills" asp-action="Index">
+                    <a asp-action="Index" asp-controller="WayBills" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "waybills"? "active": "")">
+                        <i class="fas fa-file-invoice mr-3"></i>WayBill
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="Productoes" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Productoes" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "productoes"? "active": "")">
+                        <i class="fas fa-shopping-basket mr-3"></i>Productos
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="Racions" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Racions" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "racions"? "active": "")">
+                        <i class="fas fa-list mr-3"></i>Raciones
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="Remesas" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Remesas" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "remesas"? "active": "")">
+                        <i class="fas fa-archive mr-3"></i>Remesas
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="Focalizacions" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Focalizacions" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "focalizacions"? "active": "")">
+                        <i class="fas fa-archive mr-3"></i>Focalizaci&oacute;n
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="SubOficinas" asp-action="Index">
+                    <a asp-action="Index" asp-controller="SubOficinas" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "suboficinas"? "active": "")">
+                        <i class="fas fa-business-time mr-3"></i>Sub-Oficinas
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="Bodegas" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Bodegas" class="list-group-item waves-effect @(ViewData["Controller"].ToString() == "bodegas"? "active": "")">
+                        <i class="fas fa-box mr-3"></i>Bodegas
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="Zonas" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Zonas" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "zonas"? "active": "")">
+                        <i class="fas fa-map-marked mr-3"></i>Zonas
+                    </a>
+                </secure-content>
+
+                <secure-content asp-area="" asp-controller="Embalajes" asp-action="Index">
+                    <a asp-action="Index" asp-controller="Embalajes" class="list-group-item waves-effect @(ViewData["Controller"].ToString() == "embalajes"? "active": "")">
+                        <i class="fas fa-boxes mr-3"></i>Embalajes
+                    </a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller="CentroEducativoes" asp-action="Importar">
+                    <a asp-action="Importar" asp-controller="CentroEducativoes" class="list-group-item waves-effect @(ViewData["Controller"].ToString().ToLower() == "centroeducativoes" && ViewData["action"].ToString().ToLower()=="importar"? "active": "")">
+                        <i class="fas fa-file-import mr-3"></i>Importar C. Educ.
+                    </a>
+                </secure-content>
+            </div>
+        </div>
+        <!--/.Navbar -->
+
+    </header>
+    <main class="pt-5 mx-lg-2">
+        <div class="container-fluid mt-4">
+
+            <div class="card wow fadeIn">
+
+                <!--Card content-->
+                <div class="card-body">
+
+                    @RenderBody()
+
+                </div>
+                <br />
+                <br />
+
+                <footer class="border-top footer text-muted">
+                    <div class="container">
+                        &copy; 2019 - PNAE-RS
+                    </div>
+                </footer>
+            </div>
+
+
+        </div>
+
+    </main>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-3.5.1.js"></script>
+    <script src="~/lib/materialdesign/js/popper.min.js"></script>
+    <script src="~/lib/materialdesign/js/bootstrap.min.js"></script>
+    <script src="~/lib/Admin-Dashboard/js/mdb.min.js"></script>
+    <script src="~/lib/select2.min.js"></script>
+    <script src="~/lib/fontawesome-free-5.10.1-web/js/all.min.js"></script>
+    <script src="~/lib/jasny-bootstrap/dist/js/jasny-bootstrap.js"></script>
+    @RenderSection("datatables", required: false)
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+    });
+</script>

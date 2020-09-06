@@ -1,0 +1,17 @@
+﻿<!--Card image-->
+<div class="view view-cascade gradient-card-header blue-gradient narrower py-2 mx-4 mb-3 d-flex justify-content-between align-items-center">
+
+    <div>
+    </div>
+
+    <a href="" class="white-text mx-3">@ViewData["Title"]</a>
+
+    <div>
+        <secure-content asp-area="" asp-controller=@ViewData["controller"] asp-action="Index">
+            <a class="btn btn-outline-white btn-rounded btn-sm px-2" asp-action="Create">
+                <i class="fas fa-plus mt-0"></i>
+            </a>
+        </secure-content>
+</div>
+
+</div>

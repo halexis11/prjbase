@@ -1,0 +1,37 @@
+﻿@model IEnumerable<prjbase.Models.Zona>
+
+@{
+     ViewData["Title"] = "Mantenimiento de Zonas";
+    ViewData["controller"] = "Zonas";
+    ViewData["category"] = "Zona";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+    <partial name="_EncabezadoConsulta" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                </secure-content>
+                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                </secure-content>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

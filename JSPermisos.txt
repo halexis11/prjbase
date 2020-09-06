@@ -1,0 +1,14 @@
+[{"Id":":Access","Name":"Access","DisplayName":null,"AreaName":null,"Actions":[{"Id":":Access:Index","Name":"Index","DisplayName":null,"ControllerId":":Access"}]},{"Id":":Role","Name":"Role","DisplayName":null,"AreaName":null,"Actions":[{"Id":":Role:Index","Name":"Index","DisplayName":null,"ControllerId":":Role"},
+ {
+        "Id": ":Role:Edit",
+        "Name": "Edit",
+        "DisplayName": null,
+        "ControllerId": ":Role"
+      },
+       {
+        "Id": ":Role:Create",
+        "Name": "Create",
+        "DisplayName": null,
+        "ControllerId": ":Role"
+      }
+      ]}]

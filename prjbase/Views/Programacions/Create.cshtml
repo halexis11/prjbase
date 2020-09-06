@@ -1,0 +1,150 @@
+﻿@model prjbase.Models.Programacion
+
+@{
+    ViewData["Category"] = "Programación";
+    ViewData["controller"] = "Programacions";
+    ViewData["Title"] = "Crear programación";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_EncabezadoProp" />
+<body>
+    <form asp-action="Create">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label class="control-label">Generar por:</label>
+                    <select id="tipo" class="js-example-basic-single form-control">
+                        <option value="">Programaci&oacute;n por:</option>
+                        <option value="1">Bodega</option>
+                        <option value="2">Sub-Oficina</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Departamento</label>
+                    <select asp-for="IdDepartamento" class="js-example-basic-single form-control" asp-items="ViewBag.IdDepartamento">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdBodega" class="control-label"></label>
+                    <select asp-for="IdBodega" class="js-example-basic-single form-control" asp-items="ViewBag.IdBodega">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Fecha" class="control-label"></label>
+                    <input asp-for="Fecha" class="form-control" type="date" />
+                    <span asp-validation-for="Fecha" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="IdRemesa" class="control-label"></label>
+                    <select asp-for="IdRemesa" class="js-example-basic-single form-control" asp-items="ViewBag.IdRemesa">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Municipio</label>
+                    <select asp-for="IdMunicipio" class="js-example-basic-single form-control" asp-items="ViewBag.IdMunicipio">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdFocalizacion" class="control-label"></label>
+                    <select asp-for="IdFocalizacion" class="js-example-basic-single form-control" asp-items="ViewBag.IdFocalizacion">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <input asp-for="Estado" hidden value="1" class="form-control" />
+        <div class="form-group">
+            <input type="submit" id="guardar" value="Guardar" class="btn btn-primary" />
+        </div>
+    </form>
+</body>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $("#guardar").click(function (event) {
+            var tipo = $("#tipo").val();
+            var bodega = $("#IdBodega").val();
+            switch (tipo) {
+                case "":
+                    alert("Favor seleccionar el tipo de programación que desea crear.");
+                    $("#tipo").focus();
+                    event.preventDefault();
+                    break;
+                case "1":
+                    if (bodega == "") {
+                        alert("Favor seleccionar la bodega.");
+                        $("#IdBodega").focus();
+                        event.preventDefault();
+                    }
+                    break;
+                case "2":
+                    var r = confirm("Se generará la programación para la Sub-Oficina asignada, seguro que desea continuar?");
+                    if (r != true) {
+                        event.preventDefault();
+                    }
+                    else {
+                        $("#IdBodega").val("");
+                    }
+
+            }
+
+        })
+         $("#IdDepartamento").change(function () {
+
+            var url = '@Url.Content("~")' + "/Municipios/GetMunicipios";
+
+            var ddlsource = "#IdDepartamento";
+
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                var item = "<option value=''>Seleccione una opción</option>";
+
+                $("#IdMunicipio").empty();
+
+
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdMunicipio").html(item);
+            })
+
+         });
+        $("#IdMunicipio").change(function () {
+
+                 cargarBodegas();
+        });
+        function cargarBodegas() {
+
+                    var url = '@Url.Content("~")' + "/Bodegas/GetBodegas";
+
+                    var ddlsource = "#IdMunicipio";
+
+                    $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                        var item = "<option value=''>Seleccione una opción</option>";
+
+                        $("#IdBodega").empty();
+                        $("#IdBodega").html(item);
+                        $.each(data, function (i, row) {
+
+                            item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                        })
+
+                        $("#IdBodega").html(item);
+                    })
+
+        };
+    </script>
+}

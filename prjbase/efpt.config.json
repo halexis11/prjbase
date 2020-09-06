@@ -1,0 +1,106 @@
+﻿{
+   "ContextClassName": "prjbaseContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "DoNotCombineNamespace": false,
+   "IdReplace": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "Models",
+   "OutputPath": "Models",
+   "ProjectRootNamespace": "prjbase",
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[AspNetUsers]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Bodega]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[CentroEducativo]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Departamento]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Distrito]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Embalaje]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Focalizacion]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Genero]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Municipio]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[NotaRemision]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Producto]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Programacion]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[ProgramacionCentroEducativo]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[ProgramacionProductoDetalle]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Racion]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[RacionDetalle]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Remesa]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[SubOficina]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[WayBill]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[WayBillDetalle]"
+      },
+      {
+         "HasPrimaryKey": true,
+         "Name": "[dbo].[Zona]"
+      }
+   ],
+   "UseDatabaseNames": true,
+   "UseFluentApiOnly": false,
+   "UseHandleBars": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseSpatial": false
+}

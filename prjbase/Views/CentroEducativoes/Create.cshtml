@@ -1,0 +1,216 @@
+﻿@model prjbase.Models.CentroEducativo
+
+@{
+    ViewData["Category"] = "Centro Educativo";
+    ViewData["controller"] = "CentroEducativoes";
+    ViewData["Title"] = "Registrar Centro Educativo";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+
+<partial name="_EncabezadoProp" />
+<body>
+    <form asp-action="Create">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Id" class="control-label"></label>
+                    <input asp-for="Id" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="IdDepartamento" class="control-label"></label>
+                    <select asp-for="IdDepartamento" class="js-example-basic-single form-control" asp-items="ViewBag.IdDepartamento">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdMunicipio" class="control-label"></label>
+                    <select asp-for="IdMunicipio" class="js-example-basic-single form-control" asp-items="ViewBag.IdMunicipio">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdDistrito" class="control-label"></label>
+                    <select asp-for="IdDistrito" class="js-example-basic-single form-control" asp-items="ViewBag.IdDistrito">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Telefono" class="control-label"></label>
+                    <input asp-for="Telefono" class="form-control" data-mask="9999-9999"/>
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="NombreContacto" class="control-label"></label>
+                    <input asp-for="NombreContacto" class="form-control" />
+                    <span asp-validation-for="NombreContacto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CorreoContacto" class="control-label"></label>
+                    <input asp-for="CorreoContacto" type="email" class="form-control" />
+                    <span asp-validation-for="CorreoContacto" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TelefonoContacto" class="control-label"></label>
+                    <input asp-for="TelefonoContacto" class="form-control"  data-mask="9999-9999"/>
+                    <span asp-validation-for="TelefonoContacto" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="IdZona" class="control-label">
+                    </label>
+                    <select asp-for="IdZona" class="js-example-basic-single form-control" asp-items="ViewBag.IdZona">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdBodega" class="control-label"></label>
+                    <select asp-for="IdBodega" class="js-example-basic-single form-control" asp-items="ViewBag.IdBodega">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Nivel" class="control-label"></label>
+                    <select asp-for="Nivel" class="js-example-basic-single form-control">
+                        <option value="">Seleccione una opci&oacute;n</option>
+                        <option value="Educación Básica">Educación B&aacute;</option>
+                        <option value="Educación Básica - Tercer Ciclo">Educaci&oacute;n B&aacute;sica - Tercer Ciclo</option>
+                        <option value="Educación Pre-Básica">Educaci&oacute;n Pre-B&aacute;sica</option>
+                        <option value="Educación Media">Educaci&oacute;n Media</option>
+                    </select>
+                    <span asp-validation-for="Nivel" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Direccion" class="control-label"></label>
+                    <input asp-for="Direccion" class="form-control" />
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ninos" class="control-label"></label>
+                    <input asp-for="Ninos" class="form-control" type="number"/>
+                    <span asp-validation-for="Ninos" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ninas" class="control-label"></label>
+                    <input asp-for="Ninas" class="form-control" type="number"/>
+                    <span asp-validation-for="Ninas" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Total" class="control-label"></label>
+                    <input asp-for="Total" class="form-control" readonly />
+                    <span asp-validation-for="Total" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <input asp-for="Estado" hidden value="true" class="form-control" />
+        <div class="form-group">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </form>
+</body>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+             $("#IdDepartamento").change(function () {
+
+            var url = '@Url.Content("~")' + "/Municipios/GetMunicipios";
+
+            var ddlsource = "#IdDepartamento";
+
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                var item = "<option value=''>Seleccione una opción</option>";
+
+                $("#IdMunicipio").empty();
+
+
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdMunicipio").html(item);
+            })
+
+             });
+
+             $("#IdMunicipio").change(function () {
+
+                 cargarBodegas();
+                 cargarDistritos();
+            });
+            function cargarDistritos() {
+
+                    var url = '@Url.Content("~")' + "/Distritoes/GetDistritos";
+
+                    var ddlsource = "#IdDepartamento";
+
+                    $.getJSON(url, {id: $(ddlsource).val() }, function (data) {
+
+                    var item = "<option value=''>Seleccione una opción</option>";
+
+                    $("#IdDistrito").empty();
+
+                        $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdDistrito").html(item);
+            })
+
+            };
+            function cargarBodegas() {
+
+                    var url = '@Url.Content("~")' + "/Bodegas/GetBodegas";
+
+                    var ddlsource = "#IdMunicipio";
+
+                    $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                        var item = "<option value=''>Seleccione una opción</option>";
+
+                        $("#IdBodega").empty();
+
+                        $.each(data, function (i, row) {
+
+                            item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                        })
+
+                        $("#IdBodega").html(item);
+                    })
+
+        };
+        $("#Ninos").change(function () {
+            var ninos = $("#Ninos").val();
+            var ninas = $("#Ninas").val();
+            if ((ninos != "") && (ninas != "")) {
+                $("#Total").val(parseInt(ninos) + parseInt(ninas));
+            }
+        });
+        $("#Ninas").change(function () {
+            var ninos = $("#Ninos").val();
+            var ninas = $("#Ninas").val();
+            if ((ninos != "") && (ninas != "")) {
+                $("#Total").val(parseInt(ninos) + parseInt(ninas));
+            }
+        });
+    </script>
+}

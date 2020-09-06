@@ -1,0 +1,163 @@
+﻿@model prjbase.Models.Bodega
+
+@{
+    ViewData["Category"] = "Bodega";
+    ViewData["controller"] = "Bodegas";
+    ViewData["Title"] = "Editar bodega";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["id"] = Model.IdSubOficina;
+}
+
+<partial name="_EncabezadoProp" />
+<form asp-action="Edit" class="form-horizontal">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="IdDepartamento" class="control-label"></label>
+                <select asp-for="IdDepartamento" class="js-example-basic-single form-control" asp-items="ViewBag.IdDepartamento">
+                    <option value="">Seleccione una opci&oacute;n</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdDistrito" class="control-label"></label>
+                <select asp-for="IdDistrito" class="js-example-basic-single form-control" asp-items="ViewBag.IdDistrito">
+                    <option value="">Seleccione una opci&oacute;n</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Responsable" class="control-label"></label>
+                <input asp-for="Responsable" class="form-control  text-uppercase" />
+                <span asp-validation-for="Responsable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Responsable2" class="control-label"></label>
+                <input asp-for="Responsable2" class="form-control text-uppercase" />
+                <span asp-validation-for="Responsable2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Estado" class="control-label"></label>
+                <select asp-for="Estado" class="form-control">
+                    <option value="">Seleccione una opci&oacute;n</option>
+                    <option value="True">Activo</option>
+                    <option value="False">Inactivo</option>
+                </select>
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="IdMunicipio" class="control-label"></label>
+                <select asp-for="IdMunicipio" class="js-example-basic-single form-control" asp-items="ViewBag.IdMunicipio">
+                    <option value="">Seleccione una opci&oacute;n</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdSubOficina" class="control-label"></label>
+                <select asp-for="IdSubOficina" class="js-example-basic-single form-control" asp-items="ViewBag.IdSubOficina">
+                    <option value="">Seleccione una opci&oacute;n</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TelefonoResponsable" class="control-label"></label>
+                <input asp-for="TelefonoResponsable" class="form-control" data-mask="9999-9999"/>
+                <span asp-validation-for="TelefonoResponsable" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TelefonoResponsable2" class="control-label"></label>
+                <input asp-for="TelefonoResponsable2" class="form-control" data-mask="9999-9999"/>
+                <span asp-validation-for="TelefonoResponsable2" class="text-danger"></span>
+            </div>
+            
+        </div>
+
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+        $("#IdDepartamento").change(function () {
+
+            var url = '@Url.Content("~")' + "/Municipios/GetMunicipios";
+
+            var ddlsource = "#IdDepartamento";
+
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                var item = "<option value=''>Seleccione una opción</option>";
+
+                $("#IdMunicipio").empty();
+
+
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdMunicipio").html(item);
+            })
+
+        });
+
+         $("#IdMunicipio").change(function () {
+
+                    @*var url = '@Url.Content("~")' + "/SubOficinas/GetSubOficina";
+
+                    var ddlsource = "#IdMunicipio";
+
+                    $.getJSON(url, {id: $(ddlsource).val() }, function (data) {
+
+                        var item = "<option value=''>Seleccione una opción</option>";
+
+                        $("#IdSubOficina").empty();
+
+                        $.each(data, function (i, row) {
+
+                            item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                        })
+
+                    $("#IdSubOficina").html(item);
+                    })*@
+                    cargarDistritos();
+                });
+                    function cargarDistritos() {
+
+                    var url = '@Url.Content("~")' + "/Distritoes/GetDistritos";
+
+                    var ddlsource = "#IdDepartamento";
+
+                    $.getJSON(url, {id: $(ddlsource).val() }, function (data) {
+
+                    var item = "<option value=''>Seleccione una opción</option>";
+
+                    $("#IdDistrito").empty();
+
+                        $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdDistrito").html(item);
+            })
+
+        };
+    </script>
+}
+

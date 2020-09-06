@@ -1,0 +1,135 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@RenderBody()
+
+
+
+@section Scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @RenderSection("scriptsprop", required: false)
+    <script>
+
+    $(function () {
+        $("#IdDepartamento").change(function () {
+
+            var url = '@Url.Content("~")' + "/Municipios/GetMunicipios";
+
+            var ddlsource = "#IdDepartamento";
+
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                var item = "<option value=''>Municipio</option>";
+
+                $("#IdMunicipio").empty();
+                $("#IdSubOficina").empty();
+                $("#IdCentroEducativo").empty();
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdMunicipio").html(item);
+            })
+            cargarDistritos();
+
+        });
+            function cargarDistritos() {
+
+                    var url = '@Url.Content("~")' + "/Distritoes/GetDistritos";
+
+                    var ddlsource = "#IdDepartamento";
+
+                    $.getJSON(url, {id: $(ddlsource).val() }, function (data) {
+
+                    var item = "<option value=''>Distrito</option>";
+
+                    $("#IdDistrito").empty();
+
+                        $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdDistrito").html(item);
+            })
+
+        };
+        function cargarBodegas() {
+
+                    var url = '@Url.Content("~")' + "/Bodegas/GetBodegas";
+
+                    var ddlsource = "#IdMunicipio";
+
+                    $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                        var item = "<option value=''>Bodega</option>";
+
+                        $("#IdBodega").empty();
+
+                        $.each(data, function (i, row) {
+
+                            item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                        })
+
+                        $("#IdBodega").html(item);
+                    })
+
+        };
+
+
+                $("#IdMunicipio").change(function () {
+
+                    var url = '@Url.Content("~")' + "/SubOficinas/GetSubOficinas";
+
+                    var ddlsource = "#IdMunicipio";
+
+                    $.getJSON(url, {id: $(ddlsource).val() }, function (data) {
+
+                        var item = "<option value=''>Sub Oficina</option>";
+
+                        $("#IdSubOficina").empty();
+
+                        $.each(data, function (i, row) {
+
+                            item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                        })
+
+                    $("#IdSubOficina").html(item);
+                    })
+                    cargarDistritos();
+                    cargarBodegas();
+                    cargarEscuelas();
+                });
+                 function cargarEscuelas() {
+
+                    var url = '@Url.Content("~")' + "/CentroEducativoes/GetCENoenProgram";
+
+                    var idmun = "#IdMunicipio";
+                    var idprogr = "#IdProgramacion";
+                    $.getJSON(url, { id: $(idmun).val(), idProgramacion: $(idprogr).val() }, function (data) {
+
+                        var item = "";
+
+                        $("#IdCentroEducativo").empty();
+
+                        $.each(data, function (i, row) {
+
+                            item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                        })
+
+                        $("#IdCentroEducativo").html(item);
+                    })
+
+                };
+                });
+
+    </script>
+}

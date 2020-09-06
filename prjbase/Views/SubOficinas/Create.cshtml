@@ -1,0 +1,67 @@
+﻿@model prjbase.Models.SubOficina
+
+@{
+    ViewData["Category"] = "Sub-Oficina";
+    ViewData["controller"] = "SubOficinas";
+    ViewData["Title"] = "Registrar Sub-Oficina";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_EncabezadoProp" />
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Nombre" class="control-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Encargado" class="control-label"></label>
+        <input asp-for="Encargado" class="form-control text-uppercase" />
+        <span asp-validation-for="Encargado" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="TelefonoEncargado" class="control-label"></label>
+        <input asp-for="TelefonoEncargado" class="form-control"  data-mask="9999-9999"/>
+        <span asp-validation-for="TelefonoEncargado" class="text-danger"></span>
+    </div>
+    <input asp-for="Estado" hidden value="True" class="form-control" />
+    <span asp-validation-for="Estado" class="text-danger"></span>
+    @*<div class="form-group">
+            <label asp-for="Estado" class="control-label"></label>
+            <input asp-for="Estado" class="form-control" />
+
+        </div>*@
+    <div class="form-group">
+        <input type="submit" value="Guardar" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+     $("#IdDepartamento").change(function () {
+
+            var url = '@Url.Content("~")' + "/Municipios/GetMunicipios";
+
+            var ddlsource = "#IdDepartamento";
+
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                var item = "<option value=''>Municipio</option>";
+
+                $("#IdMunicipio").empty();
+
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdMunicipio").html(item);
+            })
+
+
+        });
+    </script>
+}

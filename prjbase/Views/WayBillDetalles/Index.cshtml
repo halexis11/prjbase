@@ -1,0 +1,53 @@
+﻿@model IEnumerable<prjbase.Models.WayBillDetalle>
+
+@{
+    ViewData["Title"] = "Detalle de WayBill";
+    ViewData["controller"] = "WayBills";
+    ViewData["category"] = "WayBill";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        WayBill
+                    </th>
+                    <th>
+                        Producto
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cantidad)
+                    </th>
+                    
+                    <th>
+                        @Html.DisplayNameFor(model => model.Fecha)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdWayBillNavigation.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdProductoNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Fecha)
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>

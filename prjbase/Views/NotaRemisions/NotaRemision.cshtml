@@ -1,0 +1,109 @@
+﻿@model IEnumerable<prjbase.Models.NotaRemision>
+@{
+    Layout = "~/Views/Shared/_LayoutReports.cshtml";
+}
+
+@{ var paginas = Model.Select(x => x.IdCentroEducativoNavigation).Distinct().Count();
+    var actual = 0;
+}
+
+@foreach (var item in Model.Select(x => x.IdCentroEducativoNavigation).Distinct())
+{
+    actual += 1;
+    <table width="100%">
+        <tr>
+            <td width="10%">
+                <img src="~/Img/logo.png" width="60" />
+            </td>
+            <td width="80%" colspan="2">
+                <h1 align="center">Nota de Remisi&oacute;n</h1>
+            </td>
+            <td width="10%">
+            </td>
+        </tr>
+    </table>
+    <table cellpadding="10" width="100%">
+        <tr>
+            <td colspan="2">
+                <b><u>Año:</u></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@DateTime.Now.Year
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b><u>C&oacute;digo Centro:</u></b>&nbsp;&nbsp;&nbsp;&nbsp;@item.Id
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b><u>Centro Escolar:</u></b>&nbsp;&nbsp;&nbsp;&nbsp;@item.Nombre
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b><u>Direcci&oacute;n:</u></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item.Direccion
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b><u>Departamento:</u></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item.IdDepartamentoNavigation.Nombre
+            </td>
+            <td>
+                <b><u>Nivel Educativo:</u></b>&nbsp;&nbsp;&nbsp;&nbsp;@item.Nivel
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <b><u>Municipio:</u></b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@item.IdMunicipioNavigation.Nombre  @item.IdDistritoNavigation.Nombre
+            </td>
+        </tr>
+    </table>
+    <br />
+    <table border="0" cellspacing="2" cellpadding="10" width="100%" align="center" bgcolor="#0a0a0a">
+        <tr bgcolor="#ffffff">
+            <th width="10%" align="center">Embalaje</th>
+            <th width="70%">Producto</th>
+            <th width="20%">Libras</th>
+        </tr>
+        <tbody>
+
+            @foreach (var prod in Model.Where(c => c.IdCentroEducativo == item.Id))
+            {
+                <tr bgcolor="#ffffff">
+                    <td align="center">
+                        @(prod.IdProductoNavigation.Embalaje.Nombre)
+                    </td>
+                    <td>
+                        @(prod.IdProductoNavigation.Nombre)
+                    </td>
+                    <td align="center">
+                        @(prod.Cantidad.ToString("##,###.00"))
+                    </td>
+                </tr>
+            }
+            <tr bgcolor="#ffffff">
+                <td>
+                </td>
+                <td align="center">
+                    <b>Total</b>
+                </td>
+                <td align="center">
+                    <b>@(Model.Where(x=>x.IdCentroEducativo == item.Id).Sum(x=>x.Cantidad).ToString("###,###.00"))</b>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    @if (actual<paginas)
+        {
+        <div style="page-break-after: always"></div>
+
+        <table class="main" cellspacing="0" cellpadding="5">
+            <colgroup>
+                <col style="width:40%">
+                <col style="width:60%">
+            </colgroup>
+            <tbody>
+        </table>
+    }
+
+}

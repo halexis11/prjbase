@@ -1,0 +1,168 @@
+﻿@model prjbase.Models.ProgramacionCentroEducativo
+
+@{
+    ViewData["Category"] = "Listado de Escuelas";
+    ViewData["controller"] = "ProgramacionCentroEducativoes";
+    ViewData["Title"] = "Agregar Escuelas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<form asp-action="Create">
+
+    <div class="card-body d-sm-flex justify-content-between">
+        <h4 class="mb-2 mb-sm-0 pt-1">
+            <a asp-action="Index" asp-route-id="@ViewBag.idprogramacion">@ViewData["Category"]</a>
+            <span>/</span>
+            <span>@ViewData["Title"]</span>
+        </h4>
+
+    </div>
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="IdProgramacion" class="control-label"></label>
+        <select asp-for="IdProgramacion" class="js-example-basic-single form-control col-md-6" asp-items="ViewBag.IdProgramacions"></select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Departamento</label>
+        <select id="IdDepartamento" class="js-example-basic-single  form-control col-md-6" asp-items="ViewBag.IdDepartamento">
+            <option value="">Seleccione una opci&oacute;n</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Municipio</label>
+        <select id="IdMunicipio" class="js-example-basic-single form-control  col-md-6">
+            <option value="">Seleccione una opci&oacute;n</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="IdCentroEducativo" class="control-label"></label>
+        <div class="custom-control custom-switch">
+            <input type="checkbox" class="custom-control-input" id="todos">
+            <label class="custom-control-label" for="todos">Seleccionar todos</label>
+        </div>
+        <select asp-for="IdCentroEducativo" class="custom-select col-md-6" multiple>
+        </select>
+
+    </div>
+
+    <div class="form-group">
+
+        <input type="button" value="Agregar" id="agregar" class="btn btn-primary" />
+    </div>
+</form>
+
+
+@section Scripts{
+    <script>
+
+         $("#IdDepartamento").change(function () {
+
+            var url = '@Url.Content("~")' + "/Municipios/GetMunicipios";
+
+            var ddlsource = "#IdDepartamento";
+
+            $.getJSON(url, { id: $(ddlsource).val() }, function (data) {
+
+                var item = "<option value=''>Municipio</option>";
+
+                $("#IdMunicipio").empty();
+
+                $("#IdCentroEducativo").empty();
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdMunicipio").html(item);
+            })
+
+         });
+
+         $("#IdMunicipio").change(function () {
+
+             cargarEscuelas();
+        });
+
+        function cargarEscuelas() {
+
+            var url = '@Url.Content("~")' + "/CentroEducativoes/GetCENoenProgram";
+
+            var idmun = "#IdMunicipio";
+            var idprogr = "#IdProgramacion";
+            $.getJSON(url, { id: $(idmun).val(), idProgramacion: $(idprogr).val() }, function (data) {
+
+                var item = "";
+
+                $("#IdCentroEducativo").empty();
+
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+
+                })
+
+                $("#IdCentroEducativo").html(item);
+            })
+
+        }
+
+        $('#todos').change(function() {
+
+           $('#IdCentroEducativo option').prop('selected', this.checked);
+
+        });
+
+         function sendAjax(url, parametros, sucesso) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: parametros,
+                success: sucesso,
+                dataType: "json",
+                error: function(err) { alert(err.responseText); }
+            });
+        }
+
+        $("#agregar").click(function () {
+
+            agregarCentros(function (response) {
+                if (response) {
+                    alert("Los Centros Educativos fueron asignados satisfactoriamente.");
+                    cargarEscuelas();
+
+                    }
+                }
+
+            );
+
+
+        });
+
+        function agregarCentros(callback) {
+            var cb = function (content) {
+
+                callback(content);
+
+            };
+            var cantidad = 1;
+            var insertados = 1;
+            var response;
+            $('#IdCentroEducativo > option:selected').each(function () {
+                cantidad += 1;
+                var prog = "#IdProgramacion";
+                var url = '@Url.Content("~")' + "/ProgramacionCentroEducativoes/Agregar";
+                sendAjax(url, { idCentroEducativo: $(this).val(), idProgramacion: $(prog).val() }, function (result) {
+                    console.log(result);
+                    if (result.data == true) {
+                        insertados += 1;
+                    }
+                });
+
+            });
+            response = "true";
+            callback(response);
+
+        }
+
+    </script>
+}

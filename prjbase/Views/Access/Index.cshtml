@@ -1,0 +1,69 @@
+﻿@model IEnumerable<UserRoleViewModel_Input>
+@{
+    ViewData["Title"] = "Acceso a Usuarios";
+    ViewData["controller"] = "Access";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<partial name="_EncabezadoConsulta" />
+<table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(m => m.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(m => m.Roles)
+            </th>
+            <th>
+                Sub Oficina
+            </th>
+            <th>
+                Bodega
+            </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => user.UserName)</td>
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        <span>@Html.DisplayFor(m => role) | </span>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(m => user.IdSubOficinaNavigation.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(m => user.IdBodegaNavigation.Nombre)
+                </td>
+                <td>
+                    <secure-content asp-area="" asp-controller="Access" asp-action="Edit">
+                    <a asp-action="Edit" asp-route-id="@user.UserId">Editar</a>
+                    </secure-content>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+    <script src="~/lib/datatables/DataTables-1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="~/lib/materialdesign/js/addons/datatables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable({
+                lengthChange: false,
+                buttons: ['copy', 'excel', 'pdf', 'colvis']
+            });
+
+            //table.buttons().container()
+            //    .appendTo('#example_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+}

@@ -1,0 +1,104 @@
+﻿@model IEnumerable<prjbase.Models.ImportarMuestra>
+
+@{
+    ViewData["Title"] = "ImportarWaybill";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<h1>ImportarWaybill</h1>
+
+<form  id="form" asp-action="Import" enctype="multipart/form-data" method="post">
+    <div class="row">
+        <div class="col-md-4">
+            <input type="file" id="formFile" name="formFile" class="form-control" />
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-8" style="padding-top:10px;">
+            <button id="importar">Importar</button>
+        </div>
+    </div>
+    <br />
+    <div id="dvData">
+        <table class="table table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.departamento)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.municipio)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.bodega)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.focalizacion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.remesa)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.fecha)
+                    </th>
+                    <th>
+                        Evaluación
+                    </th>
+                </tr>
+            </thead>
+        
+        </table>
+
+    </div>
+</form>
+@section Scripts2 {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $("#importar").click(function (e) {
+
+        var formdata = new FormData($('#form').get(0));
+        
+        $.ajax({
+            url: '@Url.Action("Import", "ImportarMuestra")',
+            type: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+               // if (data.code == "0") {
+                    appendData("datatable", data.data);
+                    $("#datatable").dataTable().fnDestroy()
+                    updateDataTable();
+               // }
+                //else {
+
+//                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //rendering errors
+            }
+        });
+            e.preventDefault();
+            e.stopPropagation();
+        })
+
+        function appendData(tableId, jsonData){
+
+          var tableHTML = ""
+          for (var eachItem in jsonData) {
+            tableHTML += "<tr>";
+            var dataObj = jsonData[eachItem];
+            for (var eachValue in dataObj){
+              tableHTML += "<td>" + dataObj[eachValue] + "</td>";
+            }
+            tableHTML += "</tr>";
+          }
+
+          document.getElementById(tableId).innerHTML = tableHTML;
+        }
+
+    </script>
+}

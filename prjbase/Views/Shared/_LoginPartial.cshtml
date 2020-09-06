@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using prjbase.Models
+@inject SignInManager<Users> SignInManager
+@inject UserManager<Users> UserManager
+
+    
+
+    
+        @if (SignInManager.IsSignedIn(User))
+        {
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i> @UserManager.GetUserName(User)
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                    <a class="dropdown-item" id="manage" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Perfil</a>
+                    <form id="logoutForm" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <a class="dropdown-item" onclick="document.getElementById('logoutForm').submit(); return false;" id="logout" >Salir</a>
+                    </form>
+                </div>
+            </li>
+
+            
+        }
+        else
+        {
+            
+    <li class="nav-item">
+        <a class="nav-link" id="register" asp-area="Identity" asp-page="/Account/Register">Registrarse</a>
+    </li>
+            <li class="nav-item">
+                <a class="nav-link" id="login" asp-area="Identity" asp-page="/Account/Login">Iniciar sesi&oacute;n</a>
+            </li>
+        }
+    

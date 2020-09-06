@@ -1,0 +1,10 @@
+﻿
+
+<div class="card-body d-sm-flex justify-content-between">
+    <h4 class="mb-2 mb-sm-0 pt-1">
+        <a asp-action="Index" asp-route-id="@(ViewData["id"] != null ? ViewData["id"] :null)" >@ViewData["Category"]</a>
+        <span>/</span>
+        <span>@ViewData["Title"]</span>
+    </h4>
+
+</div>

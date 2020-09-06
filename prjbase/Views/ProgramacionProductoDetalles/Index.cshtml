@@ -1,0 +1,66 @@
+﻿@model IEnumerable<prjbase.Models.ProgramacionProductoDetalle>
+
+@{
+    ViewData["Category"] = "Programación";
+    ViewData["controller"] = "ProgramacionProductoDetalles";
+    ViewData["Title"] = "Productos por Centro Educativo";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+<body>
+
+    <div class="card-body d-sm-flex justify-content-between">
+        <h4 class="mb-2 mb-sm-0 pt-1">
+            <a asp-action="Index" asp-route-id="@ViewBag.idprogramacion" asp-controller="Programacions">@ViewData["Category"]</a>
+        </h4>
+
+    </div>
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdCentroEducativoNavigation.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdCentroEducativoNavigation.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdProductoNavigation)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Cantidad)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCentroEducativoNavigation.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdCentroEducativoNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdProductoNavigation.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td>
+                        @if (Model.Select(x => x.IdProgramacionNavigation).FirstOrDefault().Estado.FirstOrDefault().ToString() != "3")
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                            <a asp-action = "Delete" asp-route-id = "@item.Id" >Eliminar</a>
+                         }
+
+                    </td>
+
+                </tr>
+}
+</tbody>
+        </table>
+        </div>
+</body>

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<prjbase.Models.SubOficina>
+
+@{
+    ViewData["Title"] = "Mantenimiento de Sub-Oficinas";
+    ViewData["controller"] = "SubOficinas";
+    ViewData["category"] = "Oficina";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+<body>
+
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Encargado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TelefonoEncargado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        </secure-content>
+                        <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a> |
+                        </secure-content>
+                        <secure-content asp-area="" asp-controller="Bodegas" asp-action="Index">
+                            <a asp-controller="Bodegas" asp-action="Index" asp-route-id="@item.Id">Bodegas</a>
+                        </secure-content>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Encargado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TelefonoEncargado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Estado)
+                    </td>
+
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>

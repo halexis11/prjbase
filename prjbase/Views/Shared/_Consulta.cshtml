@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <link href="~/lib/Datatables/DataTables-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+
+    <link href="~/lib/Datatables/Buttons-1.6.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="~/lib/Datatables/Responsive-2.2.3/css/responsive.bootstrap.css" rel="stylesheet" />
+}
+@RenderBody()
+@section datatables{
+<script src="~/lib/Datatables/datatables.min.js"></script>
+<script src="~/lib/Datatables/Datatables-1-10.21/jquery.dataTables.min.js"></script>
+<script src="~/lib/Datatables/Datatables-1-10.21/dataTables.buttons.min.js"></script>
+<script src="~/lib/Datatables/Datatables-1-10.21/jszip.min.js"></script>
+<script src="~/lib/Datatables/Datatables-1-10.21/pdfmake.min.js"></script>
+<script src="~/lib/Datatables/Datatables-1-10.21/vfs_fonts.js"></script>
+<script src="~/lib/Datatables/Datatables-1-10.21/buttons.html5.min.js"></script>
+<script src="~/lib/Datatables/Datatables-1-10.21/buttons.colVis.min.js"></script>
+}
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            updateDataTable();
+        });
+        function updateDataTable() {
+            $('.table').DataTable({
+                scrollX: true,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No hay registros para mostrar",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    },
+                    buttons: {
+                        colvis: '...'
+                    }
+                }
+                ,
+                    dom: 'Bfrtip',
+                    buttons: [
+                        {
+                            extend: 'excelHtml5',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        {
+                            extend: 'pdfHtml5',
+                            orientation: 'landscape',
+                            exportOptions: {
+                                columns: ':visible'
+                            }
+                        },
+                        'colvis'
+                ]
+            });
+        }
+    </script>
+    @RenderSection("scripts2", required: false)
+
+}

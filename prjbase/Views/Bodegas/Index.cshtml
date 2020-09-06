@@ -1,0 +1,102 @@
+﻿@model IEnumerable<prjbase.Models.Bodega>
+
+@{
+    ViewData["Title"] = "Mantenimiento de bodegas";
+    ViewData["controller"] = "Bodegas";
+    ViewData["category"] = "Bodega";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+    
+            <partial name="_EncabezadoConsulta" />
+            <div class="px-4">
+                <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Acci&oacute;n</th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdDepartamentoNavigation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdMunicipioNavigation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdDistritoNavigation)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Nombre)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Direccion)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Responsable)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TelefonoResponsable)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Responsable2)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TelefonoResponsable2)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IdSubOficinaNavigation)
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                                </secure-content>
+                                <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                                    </secure-content>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdDepartamentoNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdMunicipioNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdDistritoNavigation.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Direccion)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Responsable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefonoResponsable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Responsable2)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TelefonoResponsable2)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdSubOficinaNavigation.Nombre)
+                            </td>
+
+                        </tr>
+                        }
+                    </tbody>
+
+                </table>
+            </div>
+       
+</body>

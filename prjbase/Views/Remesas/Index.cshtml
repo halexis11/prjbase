@@ -1,0 +1,70 @@
+﻿@model IEnumerable<prjbase.Models.Remesa>
+
+@{
+    ViewData["Title"] = "Mantenimiento de remesas";
+    ViewData["controller"] = "Remesas";
+    ViewData["category"] = "Remesa";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Ano)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Dias)
+                    </th>
+                    <th>
+                        Activa
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdZonaNavigation)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        </secure-content>
+                        <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                        </secure-content>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ano)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dias)
+                    </td>
+                    <td>
+                        @(item.Estado==true?"Sí": "No")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdZonaNavigation.Nombre)
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>

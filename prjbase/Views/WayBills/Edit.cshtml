@@ -1,0 +1,200 @@
+﻿@model prjbase.Models.WayBill
+
+@{
+    ViewData["Category"] = "WayBill";
+    ViewData["controller"] = "WayBills";
+    ViewData["Title"] = "Editar WayBill";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<partial name="_EncabezadoProp" />
+<body>
+    <form id="form" asp-action="Edit" enctype="multipart/form-data" method="post">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="Codigo" class="control-label"></label>
+                            <input asp-for="Codigo" class="form-control" />
+                            <span asp-validation-for="Codigo" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="FechaDespacho" class="control-label"></label>
+                            <input asp-for="FechaDespacho" class="form-control" />
+                            <span asp-validation-for="FechaDespacho" class="text-danger"></span>
+                        </div>
+                        
+                        
+                        
+                        
+                        <div class="form-group">
+                            <label asp-for="IdBodega" class="control-label"></label>
+                            <select asp-for="IdBodega" class="js-example-basic-single form-control" asp-items="ViewBag.IdBodega">
+                                <option value="">Seleccione una opci&oacute;n</option>
+                            </select>
+                            <span asp-validation-for="IdBodega" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label asp-for="Nivel" class="control-label"></label>
+                            <select asp-for="Nivel" class="js-example-basic-single form-control">
+                                <option value="">Seleccione una opci&oacute;n</option>
+                                <option value="Educación Básica">Educación B&aacute;</option>
+                                <option value="Educación Básica - Tercer Ciclo">Educaci&oacute;n B&aacute;sica - Tercer Ciclo</option>
+                                <option value="Educación Pre-Básica">Educaci&oacute;n Pre-B&aacute;sica</option>
+                                <option value="Educación Media">Educaci&oacute;n Media</option>
+                            </select>
+                            <span asp-validation-for="Nivel" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Estado" class="control-label"></label>
+                            <select asp-for="Estado" class="form-control">
+                                <option value="">Seleccione una opci&oacute;n</option>
+                                <option value="1">Activo</option>
+                                <option value="0">Inactivo</option>
+                            </select>
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </div>
+                        <input hidden asp-for="FechaCreacion" class="form-control" />
+
+                        <input hidden asp-for="UsuarioCreacion" class="form-control" />
+
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="IdRemesa" class="control-label"></label>
+                            <select asp-for="IdRemesa" class="js-example-basic-single form-control" asp-items="ViewBag.IdRemesa">
+                                <option value="">Seleccione una opci&oacute;n</option>
+                            </select>
+                            <span asp-validation-for="IdRemesa" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="FechaLlegada" class="control-label"></label>
+                            <input asp-for="FechaLlegada" class="form-control" />
+                            <span asp-validation-for="FechaLlegada" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Year" class="control-label"></label>
+                            <input asp-for="Year" class="form-control" />
+                            <span asp-validation-for="Year" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="IT" class="control-label"></label>
+                            <input asp-for="IT" class="form-control" />
+                            <span asp-validation-for="IT" class="text-danger"></span>
+                        </div>
+                        
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                    </div>
+                </div>
+        </div>
+        </div>
+            <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label>Seleccionar documento:</label>
+                        <div class="col-md-4">
+                            <input type="file" id="formFile" name="formFile" class="form-control" />
+                        </div>
+                    </div>
+                    
+
+                </div>
+                <div class="row">
+                    <div class="col-md-8" style="padding-top:10px;">
+                        <button id="importar">Importar</button>
+                    </div>
+                </div>
+                <br />
+                <div id="dvData">
+                    <table class="table table-bordered table-striped" id="datatable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>
+                                    Id
+                                </th>
+                                <th>Cod. WayBill</th>
+                                <th>
+                                    Producto
+                                </th>
+                                <th>
+                                    Cantidad
+                                </th>
+                                <th>
+                                    Fecha
+                                </th>
+                                <th>
+                                    Evaluación
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</body>
+@section Scripts2 {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        $("#importar").click(function (e) {
+
+        var formdata = new FormData($('#form').get(0));
+
+        $.ajax({
+            url: '@Url.Action("Import", "WayBills")',
+            type: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                console.log(data.data);
+                if (data.code == "0") {
+                    appendData("datatable", data.data);
+                    $("#datatable").dataTable().fnDestroy()
+                    updateDataTable();
+                }
+                else {
+
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                //rendering errors
+            }
+        });
+            e.preventDefault();
+            e.stopPropagation();
+        })
+
+        function appendData(tableId, jsonData){
+
+          var tableHTML = ""
+          for (var eachItem in jsonData) {
+            tableHTML += "<tr>";
+            var dataObj = jsonData[eachItem];
+            for (var eachValue in dataObj){
+              tableHTML += "<td>" + dataObj[eachValue] + "</td>";
+            }
+            tableHTML += "</tr>";
+          }
+
+          document.getElementById(tableId).innerHTML = tableHTML;
+        }
+
+    </script>
+}
+

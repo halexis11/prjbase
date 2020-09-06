@@ -1,0 +1,121 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="4.5.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
+    <PackageReference Include="Rotativa.AspNetCore" Version="1.1.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Reportes\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\Admin-Dashboard\CODE_OF_CONDUCT.md" />
+    <None Include="wwwroot\lib\Admin-Dashboard\CONTRIBUTING.md" />
+    <None Include="wwwroot\lib\Admin-Dashboard\font\roboto\Roboto-Bold.woff2" />
+    <None Include="wwwroot\lib\Admin-Dashboard\font\roboto\Roboto-Light.woff2" />
+    <None Include="wwwroot\lib\Admin-Dashboard\font\roboto\Roboto-Medium.woff2" />
+    <None Include="wwwroot\lib\Admin-Dashboard\font\roboto\Roboto-Regular.woff2" />
+    <None Include="wwwroot\lib\Admin-Dashboard\font\roboto\Roboto-Thin.woff2" />
+    <None Include="wwwroot\lib\Admin-Dashboard\img\lightbox\default-skin.svg" />
+    <None Include="wwwroot\lib\Admin-Dashboard\img\svg\arrow_left.svg" />
+    <None Include="wwwroot\lib\Admin-Dashboard\img\svg\arrow_right.svg" />
+    <None Include="wwwroot\lib\Admin-Dashboard\ISSUE_TEMPLATE.md" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\datatables-select.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\datatables-select.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\datatables.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\datatables.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\imagesloaded.pkgd.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\jquery.zmd.hierarchical-display.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\jquery.zmd.hierarchical-display.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\masonry.pkgd.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\progressBar.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\progressBar.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\rating.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\addons\rating.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\bootstrap.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\bootstrap.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\jquery-3.4.1.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\mdb.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\mdb.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\bs-custom-file-input.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\chart.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\default-file-input.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\enhanced-modals.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\forms-free.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\jquery.easing.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\scrolling-navbar.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\treeview.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\velocity.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\velocity.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\waves.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\modules\wow.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\js\popper.min.js" />
+    <None Include="wwwroot\lib\Admin-Dashboard\License.pdf" />
+    <None Include="wwwroot\lib\Admin-Dashboard\README.md" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\addons\_datatables-select.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\addons\_datatables.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\addons\_directives.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\addons\_flags.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\addons\_hierarchical-display.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\addons\_rating.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\bootstrap\_functions.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\bootstrap\_rfs.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\bootstrap\_variables.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_colors.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_global.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_helpers.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_masks.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_mixins.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_typography.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_variables.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\core\_waves.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\modules\animations-extended\animations-extended.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\modules\animations-extended\_module.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_animations-basic.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_badges.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_buttons.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_cards.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_carousels.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_depreciated.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_dropdowns.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_footers.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_forms.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_input-group.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_list-group.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_loader.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_modals.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_msc.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_navbars.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_pagination.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_steppers.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_switch.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_tables.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\free\_treeview.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\mdb.lite.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\mdb.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\style.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\_custom-skin.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\_custom-styles.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\scss\_custom-variables.scss" />
+    <None Include="wwwroot\lib\Admin-Dashboard\Useful_Resources.pdf" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,34 @@
+﻿@model prjbase.Models.Producto
+
+@{
+    ViewData["Category"] = "Producto";
+    ViewData["controller"] = "Productoes";
+    ViewData["Title"] = "Crear producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<partial name="_EncabezadoProp" />
+<body>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Nombre" class="control-label"></label>
+            <input asp-for="Nombre" class="form-control col-md-6" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="EmbalajeId" class="control-label"></label>
+            <select asp-for="EmbalajeId" class="js-example-basic-single form-control" asp-items="ViewBag.Embalaje">
+                <option value="">Seleccione una opci&oacute;n</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </form>
+
+
+    @*@section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }*@
+</body>

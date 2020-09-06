@@ -1,0 +1,64 @@
+﻿@model IEnumerable<prjbase.Models.Distrito>
+
+@{
+    ViewData["Title"] = "Mantenimiento de distritos";
+    ViewData["controller"] = "Distritoes";
+    ViewData["category"] = "Distrito";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Descripcion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Estado)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdDepartamentoNavigation)
+                    </th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        </secure-content>
+                        <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                        </secure-content>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descripcion)
+                    </td>
+                    <td>
+                        @(item.Estado==true?"Activo": "Inactivo")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IdDepartamentoNavigation.Nombre)
+                    </td>
+
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</body>

@@ -1,0 +1,49 @@
+﻿@model IEnumerable<prjbase.Models.Producto>
+
+@{
+    ViewData["Title"] = "Mantenimiento de productos";
+    ViewData["controller"] = "Productoes";
+    ViewData["category"] = "Producto";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Nombre)
+                    </th>
+                    <th>
+                        Embalaje
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Nombre)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Embalaje.Nombre)
+                        </td>
+                        <td>
+                            <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Edit">
+                                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                            </secure-content>
+                            <secure-content asp-area="" asp-controller=@ViewData["Controller"] asp-action="Delete">
+                                <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                            </secure-content>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
+</body>

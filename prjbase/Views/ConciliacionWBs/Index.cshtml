@@ -1,0 +1,51 @@
+﻿@model IEnumerable<prjbase.Models.ConciliacionWB>
+
+@{
+    ViewData["Title"] = "Conciliación de WayBill";
+    ViewData["controller"] = "WayBills";
+    ViewData["category"] = "WayBill";
+    Layout = "~/Views/Shared/_Consulta.cshtml";
+}
+
+<body>
+    <partial name="_EncabezadoConsulta" />
+    <div class="px-4">
+        <table class="table display table-bordered table-striped" id="datatable" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Embalaje)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Producto)
+                        </th>
+                        <th>
+                            Libras(WayBill)
+                        </th>
+                        <th>
+                            Libras(NR)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Embalaje)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Producto)
+                            </td>
+                            <td>
+                                @item.CantidadWB.ToString("##,###.00")
+                            </td>
+                            <td>
+                                @item.CantidadNR.ToString("##,###.00")
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            </div>
+</body>
